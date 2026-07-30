@@ -38,7 +38,7 @@ For production changes:
 
 Executable tests live beside source files as `src/*.test.ts`. Skill-level
 pressure scenarios and their before/after evaluations live in
-`docs/superpowers/skill-tests/telegram-summary-scenarios.md`.
+`docs/superpowers/skill-tests/meeting-minutes-scenarios.md`.
 
 ## Mock fixtures
 
@@ -71,5 +71,5 @@ The portable skill is validated separately:
 
 ```powershell
 python C:\Users\t0uchY\.codex\skills\.system\skill-creator\scripts\quick_validate.py `
-  .agents/skills/telegram-summary
+  .agents/skills/meeting-minutes
 ```

@@ -8,7 +8,7 @@ MCP client owns the reasoning loop and produces the final summary.
 ```text
 User request
     |
-Codex / Claude + telegram-summary skill
+Codex / Claude + meeting-minutes skill
     |
 Streamable HTTP MCP endpoint (/mcp)
     |
@@ -24,7 +24,7 @@ reading and writing into one tool.
 
 ## Summary orchestration
 
-The portable `.agents/skills/telegram-summary/SKILL.md` directs the MCP client
+The portable `.agents/skills/meeting-minutes/SKILL.md` directs the MCP client
 to:
 
 1. normalize the requested time range;

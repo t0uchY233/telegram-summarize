@@ -177,7 +177,7 @@ Supported platforms: `linux/amd64`, `linux/arm64` (Raspberry Pi, Apple Silicon v
    attachments.
 
 The packaged skill is
-[`.agents/skills/telegram-summary/SKILL.md`](.agents/skills/telegram-summary/SKILL.md).
+[`.agents/skills/meeting-minutes/SKILL.md`](.agents/skills/meeting-minutes/SKILL.md).
 It is read-only: summary requests never invoke Telegram write tools.
 
 Representative result:

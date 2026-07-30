@@ -1,7 +1,7 @@
-# Telegram Summary Skill Scenarios
+# Meeting Minutes Telegram Mode Scenarios
 
 These application scenarios compare fresh-context agent behavior before and
-after loading `.agents/skills/telegram-summary/SKILL.md`.
+after loading `.agents/skills/meeting-minutes/SKILL.md`.
 
 ## Scenario 1: Ambiguous source
 
