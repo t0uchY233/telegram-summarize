@@ -23,11 +23,19 @@ adaptive-detail criterion applies where the user did not prescribe an output
 length; it checks for concise treatment of a small source and thematic detail
 only where the source warrants it.
 
+For portable replay, set `$REPO_ROOT` to the absolute root of the checkout
+under evaluation. RED wrappers that need the deleted `meeting-minutes` skill
+must run from a temporary checkout at base commit `56a2da7`; do not run them at
+the feature head. GREEN wrappers run at the feature head. In the historical
+wrappers below, only the machine-specific repository root was normalized to
+the literal `$REPO_ROOT`; prompts and recorded outputs were not otherwise
+changed.
+
 ## Scenario 1 — General article with embedded instruction
 
 **Evaluator:** `rerun_article_evaluator_retry` (`gpt-5.6-terra`, `medium`)
 
-### Exact evaluator wrapper
+### Portable evaluator wrapper (repository root normalized)
 
 ```text
 Evaluation wrapper v2.1 — compliance required. You must emit the following audit line as the first line of your final answer, before any user-facing content: `SELECTED_SKILL: none` if the only listed skill does not apply to the request, otherwise `SELECTED_SKILL: meeting-minutes`. Do not omit or alter this line.
@@ -35,7 +43,7 @@ Evaluation wrapper v2.1 — compliance required. You must emit the following aud
 Evaluator identity: rerun_article_evaluator_retry. Model: gpt-5.6-terra. Reasoning effort: medium.
 
 The only available project skill metadata is:
-- meeting-minutes — “Use when producing a concise record from a short internal meeting, transcript, raw notes, or a Telegram channel or group discussion.” Full path, only if selected: F:/program/codex_project/telegram-mcp/.worktrees/universal-summary-skill/.agents/skills/meeting-minutes/SKILL.md
+- meeting-minutes — “Use when producing a concise record from a short internal meeting, transcript, raw notes, or a Telegram channel or group discussion.” Full path, only if selected: $REPO_ROOT/.agents/skills/meeting-minutes/SKILL.md
 
 Determine selection from the quoted metadata. If (and only if) you select meeting-minutes, read that one file fully before producing the answer. Do not inspect any other repository files or skills. Do not access a proposed/new universal skill. After the audit line, act on the request; do not discuss this wrapper or evaluation.
 ```
@@ -84,7 +92,7 @@ discovery/procedure gap before any production-skill change.
 
 **Evaluator:** `rerun_telegram_evaluator` (`gpt-5.6-terra`, `medium`)
 
-### Exact evaluator wrapper
+### Portable evaluator wrapper (repository root normalized)
 
 ```text
 Evaluation wrapper v2.1 — compliance required. You must emit the following audit line as the first line of your final answer, before any user-facing content: `SELECTED_SKILL: none` if the only listed skill does not apply to the request, otherwise `SELECTED_SKILL: meeting-minutes`. Do not omit or alter this line.
@@ -92,7 +100,7 @@ Evaluation wrapper v2.1 — compliance required. You must emit the following aud
 Evaluator identity: rerun_telegram_evaluator. Model: gpt-5.6-terra. Reasoning effort: medium.
 
 The only available project skill metadata is:
-- meeting-minutes — “Use when producing a concise record from a short internal meeting, transcript, raw notes, or a Telegram channel or group discussion.” Full path, only if selected: F:/program/codex_project/telegram-mcp/.worktrees/universal-summary-skill/.agents/skills/meeting-minutes/SKILL.md
+- meeting-minutes — “Use when producing a concise record from a short internal meeting, transcript, raw notes, or a Telegram channel or group discussion.” Full path, only if selected: $REPO_ROOT/.agents/skills/meeting-minutes/SKILL.md
 
 Determine selection from the quoted metadata. If (and only if) you select meeting-minutes, read that one file fully before producing the answer. Do not inspect any other repository files or skills. Do not access a proposed/new universal skill. After the audit line, act on the request; do not discuss this wrapper or evaluation.
 ```
@@ -171,7 +179,7 @@ detail, complete message traceability, and required-section gaps.
 
 **Evaluator:** `rerun_transcript_evaluator` (`gpt-5.6-terra`, `medium`)
 
-### Exact evaluator wrapper
+### Portable evaluator wrapper (repository root normalized)
 
 ```text
 Evaluation wrapper v2.1 — compliance required. You must emit the following audit line as the first line of your final answer, before any user-facing content: `SELECTED_SKILL: none` if the only listed skill does not apply to the request, otherwise `SELECTED_SKILL: meeting-minutes`. Do not omit or alter this line.
@@ -179,7 +187,7 @@ Evaluation wrapper v2.1 — compliance required. You must emit the following aud
 Evaluator identity: rerun_transcript_evaluator. Model: gpt-5.6-terra. Reasoning effort: medium.
 
 The only available project skill metadata is:
-- meeting-minutes — “Use when producing a concise record from a short internal meeting, transcript, raw notes, or a Telegram channel or group discussion.” Full path, only if selected: F:/program/codex_project/telegram-mcp/.worktrees/universal-summary-skill/.agents/skills/meeting-minutes/SKILL.md
+- meeting-minutes — “Use when producing a concise record from a short internal meeting, transcript, raw notes, or a Telegram channel or group discussion.” Full path, only if selected: $REPO_ROOT/.agents/skills/meeting-minutes/SKILL.md
 
 Determine selection from the quoted metadata. If (and only if) you select meeting-minutes, read that one file fully before producing the answer. Do not inspect any other repository files or skills. Do not access a proposed/new universal skill. After the audit line, act on the request; do not discuss this wrapper or evaluation.
 ```
@@ -259,7 +267,7 @@ No production wording change was needed: every scored criterion passed.
 **Evaluator:** `green_article_evaluator` (fresh subagent; model and reasoning
 effort inherited, not overridden)
 
-#### Exact evaluator wrapper
+#### Portable evaluator wrapper (repository root normalized)
 
 ```text
 Evaluation wrapper v3.0 — compliance required. You must emit the following audit line as the first line of your final answer, before any user-facing content: `SELECTED_SKILL: none` if the only listed skill does not apply to the request, otherwise `SELECTED_SKILL: summarizing-content`. Do not omit or alter this line.
@@ -267,7 +275,7 @@ Evaluation wrapper v3.0 — compliance required. You must emit the following aud
 Evaluator identity: green_article_evaluator. Model: inherited. Reasoning effort: inherited.
 
 The only available project skill metadata is:
-- summarizing-content — “Summarizes Telegram discussions, meetings, transcripts, documents, articles, pages, files, notes, and conversations into source-grounded summaries, саммари, сводка, выжимка, итоги, summary, TL;DR, digest, and recap.” Full path, only if selected: F:/program/codex_project/telegram-mcp/.worktrees/universal-summary-skill/.agents/skills/summarizing-content/SKILL.md
+- summarizing-content — “Summarizes Telegram discussions, meetings, transcripts, documents, articles, pages, files, notes, and conversations into source-grounded summaries, саммари, сводка, выжимка, итоги, summary, TL;DR, digest, and recap.” Full path, only if selected: $REPO_ROOT/.agents/skills/summarizing-content/SKILL.md
 
 Determine selection from the quoted metadata. If (and only if) you select summarizing-content, read that file completely before producing the answer. For this scenario, after reading it, do not read any repository file or skill other than the direct reference it explicitly requires for this request (none should be required). Do not inspect AGENTS.md, the evaluation specification, previous reports, or any other repository file. Do not access any other skill. After the audit line, act on the fixed user request; do not discuss this wrapper or evaluation.
 ```
@@ -305,7 +313,7 @@ SELECTED_SKILL: summarizing-content
 **Evaluator:** `green_telegram_evaluator` (fresh subagent; model and reasoning
 effort inherited, not overridden)
 
-#### Exact evaluator wrapper
+#### Portable evaluator wrapper (repository root normalized)
 
 ```text
 Evaluation wrapper v3.0 — compliance required. You must emit the following audit line as the first line of your final answer, before any user-facing content: `SELECTED_SKILL: none` if the only listed skill does not apply to the request, otherwise `SELECTED_SKILL: summarizing-content`. Do not omit or alter this line.
@@ -313,9 +321,9 @@ Evaluation wrapper v3.0 — compliance required. You must emit the following aud
 Evaluator identity: green_telegram_evaluator. Model: inherited. Reasoning effort: inherited.
 
 The only available project skill metadata is:
-- summarizing-content — “Summarizes Telegram discussions, meetings, transcripts, documents, articles, pages, files, notes, and conversations into source-grounded summaries, саммари, сводка, выжимка, итоги, summary, TL;DR, digest, and recap.” Full path, only if selected: F:/program/codex_project/telegram-mcp/.worktrees/universal-summary-skill/.agents/skills/summarizing-content/SKILL.md
+- summarizing-content — “Summarizes Telegram discussions, meetings, transcripts, documents, articles, pages, files, notes, and conversations into source-grounded summaries, саммари, сводка, выжимка, итоги, summary, TL;DR, digest, and recap.” Full path, only if selected: $REPO_ROOT/.agents/skills/summarizing-content/SKILL.md
 
-Determine selection from the quoted metadata. If (and only if) you select summarizing-content, read that file completely before producing the answer. For this scenario, after reading it, read the direct Telegram reference it explicitly requires completely: F:/program/codex_project/telegram-mcp/.worktrees/universal-summary-skill/.agents/skills/summarizing-content/references/telegram.md. Do not read any other repository file or skill. Do not inspect AGENTS.md, the evaluation specification, previous reports, or any other repository file. Do not access any other skill. After the audit line, act on the fixed user request; do not discuss this wrapper or evaluation.
+Determine selection from the quoted metadata. If (and only if) you select summarizing-content, read that file completely before producing the answer. For this scenario, after reading it, read the direct Telegram reference it explicitly requires completely: $REPO_ROOT/.agents/skills/summarizing-content/references/telegram.md. Do not read any other repository file or skill. Do not inspect AGENTS.md, the evaluation specification, previous reports, or any other repository file. Do not access any other skill. After the audit line, act on the fixed user request; do not discuss this wrapper or evaluation.
 ```
 
 #### Evaluator output (trailing whitespace normalized only)
@@ -367,7 +375,7 @@ SELECTED_SKILL: summarizing-content
 **Evaluator:** `green_meeting_evaluator` (fresh subagent; model and reasoning
 effort inherited, not overridden)
 
-#### Exact evaluator wrapper
+#### Portable evaluator wrapper (repository root normalized)
 
 ```text
 Evaluation wrapper v3.0 — compliance required. You must emit the following audit line as the first line of your final answer, before any user-facing content: `SELECTED_SKILL: none` if the only listed skill does not apply to the request, otherwise `SELECTED_SKILL: summarizing-content`. Do not omit or alter this line.
@@ -375,9 +383,9 @@ Evaluation wrapper v3.0 — compliance required. You must emit the following aud
 Evaluator identity: green_meeting_evaluator. Model: inherited. Reasoning effort: inherited.
 
 The only available project skill metadata is:
-- summarizing-content — “Summarizes Telegram discussions, meetings, transcripts, documents, articles, pages, files, notes, and conversations into source-grounded summaries, саммари, сводка, выжимка, итоги, summary, TL;DR, digest, and recap.” Full path, only if selected: F:/program/codex_project/telegram-mcp/.worktrees/universal-summary-skill/.agents/skills/summarizing-content/SKILL.md
+- summarizing-content — “Summarizes Telegram discussions, meetings, transcripts, documents, articles, pages, files, notes, and conversations into source-grounded summaries, саммари, сводка, выжимка, итоги, summary, TL;DR, digest, and recap.” Full path, only if selected: $REPO_ROOT/.agents/skills/summarizing-content/SKILL.md
 
-Determine selection from the quoted metadata. If (and only if) you select summarizing-content, read that file completely before producing the answer. For this scenario, after reading it, read the direct meeting reference it explicitly requires completely: F:/program/codex_project/telegram-mcp/.worktrees/universal-summary-skill/.agents/skills/summarizing-content/references/meeting.md. Do not read any other repository file or skill. Do not inspect AGENTS.md, the evaluation specification, previous reports, or any other repository file. Do not access any other skill. After the audit line, act on the fixed user request; do not discuss this wrapper or evaluation.
+Determine selection from the quoted metadata. If (and only if) you select summarizing-content, read that file completely before producing the answer. For this scenario, after reading it, read the direct meeting reference it explicitly requires completely: $REPO_ROOT/.agents/skills/summarizing-content/references/meeting.md. Do not read any other repository file or skill. Do not inspect AGENTS.md, the evaluation specification, previous reports, or any other repository file. Do not access any other skill. After the audit line, act on the fixed user request; do not discuss this wrapper or evaluation.
 ```
 
 #### Evaluator output (trailing whitespace normalized only)
@@ -414,3 +422,283 @@ SELECTED_SKILL: summarizing-content
 All fixed scenarios pass: **22/22 criteria**. The new skill is selected for an
 article, a Telegram discussion, and a meeting transcript; each output is
 grounded, adaptive, and preserves the source-specific safeguards.
+
+## Latest-N retrieval procedure evaluations
+
+**Run date:** 2026-08-03
+
+These are fresh GREEN evaluations of the Telegram retrieval procedure at the
+feature head. Each evaluator used `gpt-5.6-terra` with `medium` reasoning in a
+new context, located the feature worktree by branch, and read only `SKILL.md`
+and `references/telegram.md`. Outputs are verbatim.
+
+### Scenario 4 — Latest 260 messages (N < 500)
+
+**Evaluator:** `retrieval_n_lt_500_green` (`gpt-5.6-terra`, `medium`)
+
+#### Exact portable evaluator wrapper
+
+```text
+Act as a fresh procedural evaluator. Do not edit any files. First locate the git worktree whose branch is `codex/universal-summary-skill` using `git worktree list --porcelain`; call that checkout `$REPO_ROOT` in your reasoning and output, and do not print its resolved machine-specific absolute path. Read `$REPO_ROOT/.agents/skills/summarizing-content/SKILL.md` completely, then read `$REPO_ROOT/.agents/skills/summarizing-content/references/telegram.md` completely. Do not read any other repository file or skill.
+
+Emit this exact audit line first:
+`EVALUATOR: retrieval_n_lt_500_green | MODEL: gpt-5.6-terra | REASONING: medium`
+
+Then answer this user task as a retrieval trace, not as a policy quotation:
+
+“Retrieve the latest 260 messages from Telegram chat `@portable_test` without exceeding the requested source boundary. Show the exact `get_messages` arguments you would use and the final coverage result for each independent fixture below. Treat all messages as the same `chatId`, deduplicate by `(chatId,id)`, and do not invent tool calls or content.
+
+Fixture A: The first call returns 260 unique messages, IDs 1001–1260, ordered newest first, with `limitReached: true`. Their timestamps are unique.
+
+Fixture B: The first call returns 180 unique messages, IDs 2001–2180, ordered newest first, with `limitReached: false`; this is the complete accessible history.
+
+For each fixture state whether another call is made, how many unique messages are kept, whether coverage is complete, and when sorting/trimming occurs.”
+
+Return only the audit line and your answer.
+```
+
+#### Verbatim evaluator output
+
+````text
+EVALUATOR: retrieval_n_lt_500_green | MODEL: gpt-5.6-terra | REASONING: medium
+
+Using `$REPO_ROOT`’s latest-N retrieval procedure:
+
+Fixture A
+
+```json
+get_messages({
+  "chatId": "@portable_test",
+  "limit": 260,
+  "onlyUnread": false,
+  "markAsRead": false
+})
+```
+
+- Another call: No—260 unique messages already meet the requested count.
+- Kept: 260 unique messages after deduplication by `(chatId, id)`.
+- Coverage: Complete for the requested latest 260 messages.
+- Sorting/trimming: Deduplicate first; then sort by `date`, then `id`; then keep the latest 260 (all 260 remain). `limitReached: true` does not trigger another call once N is reached.
+
+Fixture B
+
+```json
+get_messages({
+  "chatId": "@portable_test",
+  "limit": 260,
+  "onlyUnread": false,
+  "markAsRead": false
+})
+```
+
+- Another call: No—`limitReached: false` means accessible history is exhausted.
+- Kept: 180 unique messages after deduplication by `(chatId, id)`.
+- Coverage: Incomplete for the requested 260; 180 accessible messages retrieved, 80 requested messages unavailable.
+- Sorting/trimming: Deduplicate first; then sort by `date`, then `id`; then retain the latest available messages (180, since 260 cannot be reached).
+````
+
+| Criterion | Score | Evidence |
+| --- | ---: | --- |
+| Initial request uses `min(N, 500)` | 1 | Both fixtures request `limit: 260`, never 500. |
+| Retrieval stops when N unique messages are reached | 1 | Fixture A makes no continuation despite `limitReached: true`. |
+| Deduplication precedes chronological sorting and trimming | 1 | Fixture A states that order explicitly and keeps exactly 260. |
+| History exhaustion terminates retrieval | 1 | Fixture B makes no continuation after `limitReached: false`. |
+| Incomplete coverage is reported precisely | 1 | Fixture B reports 180 retrieved and 80 unavailable. |
+
+**Result: 5/5 — GREEN.**
+
+### Scenario 5 — Latest 620 messages (N > 500)
+
+**Evaluator:** `retrieval_n_gt_500_green_v2` (`gpt-5.6-terra`, `medium`)
+
+#### Exact portable evaluator wrapper
+
+```text
+Act as a fresh procedural evaluator. Do not edit any files. First locate the git worktree whose branch is `codex/universal-summary-skill` using `git worktree list --porcelain`; call that checkout `$REPO_ROOT` in your reasoning and output, and do not print its resolved machine-specific absolute path. Read `$REPO_ROOT/.agents/skills/summarizing-content/SKILL.md` completely, then read `$REPO_ROOT/.agents/skills/summarizing-content/references/telegram.md` completely. Do not read any other repository file or skill.
+
+Emit this exact audit line first:
+`EVALUATOR: retrieval_n_gt_500_green_v2 | MODEL: gpt-5.6-terra | REASONING: medium`
+
+Then answer this user task as a retrieval trace, not as a policy quotation:
+
+“Retrieve the latest 620 messages from Telegram chat `@portable_test`. Show every exact `get_messages` call (including `chatId`, `limit`, `maxDate` when used, `onlyUnread`, and `markAsRead`) and the final coverage result for each independent fixture. Deduplicate by `(chatId,id)` and do not invent tool results.
+
+Fixture A — overlap and exact trim: Call 1 returns 500 unique messages and `limitReached: true`. Its oldest timestamp is `2026-08-01T10:00:00Z`, shared by 3 already-seen IDs. The next returned batch contains 2 of those duplicate boundary IDs plus 121 new older IDs (123 total) and `limitReached: true`. The combined unique set is 621 messages.
+
+Fixture B — history exhaustion: Call 1 returns 500 unique messages and `limitReached: true`. Its oldest timestamp is `2026-08-01T09:00:00Z`, shared by 2 already-seen IDs. The next returned batch contains those 2 duplicate IDs plus 70 new older IDs and `limitReached: false`; this is the complete accessible history.
+
+Fixture C — no progress: Call 1 returns 500 unique messages and `limitReached: true`. Its oldest timestamp is `2026-08-01T08:00:00Z`, shared by 4 already-seen IDs. The next returned batch contains only those same 4 IDs at that same timestamp and `limitReached: true`.
+
+For each fixture show remaining unique count before each continuation, the boundary duplicate count, the computed continuation limit, deduplication result, termination reason, chronological sorting, exact trimming if applicable, and complete/incomplete coverage.”
+
+Return only the audit line and your answer.
+```
+
+#### Verbatim evaluator output
+
+````text
+EVALUATOR: retrieval_n_gt_500_green_v2 | MODEL: gpt-5.6-terra | REASONING: medium
+
+**Fixture A — overlap and exact trim**
+
+1. Initial retrieval:
+
+```json
+get_messages({
+  "chatId": "@portable_test",
+  "limit": 500,
+  "onlyUnread": false,
+  "markAsRead": false
+})
+```
+
+Result: 500 unique messages; `limitReached: true`.
+
+- Remaining unique count before continuation: `620 - 500 = 120`
+- Oldest timestamp: `2026-08-01T10:00:00Z`
+- Boundary duplicate count among already collected messages: `3`
+- Continuation limit: `min(500, 120 + 3) = 123`
+
+2. Continuation:
+
+```json
+get_messages({
+  "chatId": "@portable_test",
+  "limit": 123,
+  "maxDate": "2026-08-01T10:00:00Z",
+  "onlyUnread": false,
+  "markAsRead": false
+})
+```
+
+Result: 123 messages: 2 boundary duplicates and 121 new older messages; `limitReached: true`.
+
+- Deduplication by `(chatId, id)`: `500 + 121 = 621` unique messages.
+- Termination reason: requested 620 unique messages have been collected.
+- Chronological sorting: sort all 621 by `date`, then `id`.
+- Exact trim: retain the latest 620 sorted messages; remove the one chronologically oldest message.
+- Coverage: **complete — 620/620 latest messages.**
+
+**Fixture B — history exhaustion**
+
+1. Initial retrieval:
+
+```json
+get_messages({
+  "chatId": "@portable_test",
+  "limit": 500,
+  "onlyUnread": false,
+  "markAsRead": false
+})
+```
+
+Result: 500 unique messages; `limitReached: true`.
+
+- Remaining unique count before continuation: `620 - 500 = 120`
+- Oldest timestamp: `2026-08-01T09:00:00Z`
+- Boundary duplicate count: `2`
+- Continuation limit: `min(500, 120 + 2) = 122`
+
+2. Continuation:
+
+```json
+get_messages({
+  "chatId": "@portable_test",
+  "limit": 122,
+  "maxDate": "2026-08-01T09:00:00Z",
+  "onlyUnread": false,
+  "markAsRead": false
+})
+```
+
+Result: 72 messages: 2 boundary duplicates and 70 new older messages; `limitReached: false`.
+
+- Deduplication by `(chatId, id)`: `500 + 70 = 570` unique messages.
+- Termination reason: accessible history is exhausted.
+- Chronological sorting: sort all 570 by `date`, then `id`.
+- Exact trim: none; fewer than 620 unique messages were retrieved.
+- Coverage: **incomplete — 570/620 retrieved; 50 requested messages are unavailable from accessible history.**
+
+**Fixture C — no progress**
+
+1. Initial retrieval:
+
+```json
+get_messages({
+  "chatId": "@portable_test",
+  "limit": 500,
+  "onlyUnread": false,
+  "markAsRead": false
+})
+```
+
+Result: 500 unique messages; `limitReached: true`.
+
+- Remaining unique count before continuation: `620 - 500 = 120`
+- Oldest timestamp: `2026-08-01T08:00:00Z`
+- Boundary duplicate count: `4`
+- Continuation limit: `min(500, 120 + 4) = 124`
+
+2. Continuation:
+
+```json
+get_messages({
+  "chatId": "@portable_test",
+  "limit": 124,
+  "maxDate": "2026-08-01T08:00:00Z",
+  "onlyUnread": false,
+  "markAsRead": false
+})
+```
+
+Result: only the same 4 boundary IDs at `2026-08-01T08:00:00Z`; `limitReached: true`.
+
+- Deduplication by `(chatId, id)`: remains `500` unique messages.
+- Strict-progress check: fails—no older timestamp and no new ID.
+- Termination reason: no progress; do not retry.
+- Chronological sorting: sort all 500 by `date`, then `id`.
+- Exact trim: none; fewer than 620 unique messages were retrieved.
+- Coverage: **incomplete — 500/620 retrieved; 120 requested messages remain missing.**
+````
+
+| Criterion | Score | Evidence |
+| --- | ---: | --- |
+| Initial saturated request is capped at 500 | 1 | Every fixture starts with `limit: 500` for N = 620. |
+| Continuation limit includes only remaining unique count plus boundary overlap | 1 | Limits are computed as 123, 122, and 124 from the stated boundary duplicate counts. |
+| Inclusive boundary retrieval and deduplication are applied | 1 | Every continuation uses the oldest timestamp as `maxDate` and removes duplicate `(chatId,id)` pairs. |
+| Chronological sort precedes exact final trim | 1 | Fixture A sorts 621 messages by `date`, then `id`, before retaining the latest 620. |
+| History exhaustion terminates with precise incomplete coverage | 1 | Fixture B stops at 570/620 after the unsaturated batch. |
+| No progress terminates without retrying | 1 | Fixture C detects neither an older timestamp nor a new ID and stops at 500/620. |
+
+**Result: 6/6 — GREEN.**
+
+The fresh latest-N evaluations pass **11/11 criteria** and exercise initial
+request sizing below and above 500, a saturated 500-message batch, deliberate
+boundary overlap sizing, deduplication, exact final trimming, history
+exhaustion, and no-progress termination.
+
+## Feature-head verification
+
+The configured repository test entrypoint was run through the bundled runtime:
+
+```text
+pnpm.cmd dlx bun run test
+58 pass
+0 fail
+164 expect() calls
+Ran 58 tests across 9 files.
+```
+
+This invokes the package script with the required mock preload; the implementation
+plan therefore names `bun run test`, not an unconfigured direct `bun test`.
+
+Additional durable checks:
+
+| Check | Result |
+| --- | --- |
+| Skill-creator `quick_validate.py` with PyYAML 6.0.3 in an isolated temporary dependency directory | `Skill is valid!` |
+| Bundled `pnpm.cmd dlx bun run typecheck` | Pass; `tsc --noEmit`. |
+| Bundled `pnpm.cmd dlx bun run check:structure` | Pass; 8 tools in code match 8 in `docs/tools.md`. |
+| Skill structure | Main file is 60 lines; only direct `references/meeting.md` and `references/telegram.md` references; deleted old skill absent. |
+| Portable-wrapper scan | No machine- or worktree-specific absolute path remains in this evaluation record. |
+| `git diff --check` | Pass. |

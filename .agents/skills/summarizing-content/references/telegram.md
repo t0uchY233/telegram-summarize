@@ -34,20 +34,26 @@ call `send_message`, `send_file`, or `delete_messages`.
 ## Retrieve the latest N messages
 
 Use this procedure separately from date-range splitting when the user asks for
-the latest N messages; N may exceed the `get_messages` limit of 500. Fetch up
-to 500 newest messages with `get_messages` using `limit: 500`, `onlyUnread:
-false`, and `markAsRead: false`. If fewer than N unique messages are available
-and the batch is saturated, continue backward in windows: set
-`maxDate` to the oldest returned timestamp, retaining that timestamp as a safe
-overlap; fetch up to 500 again; then deduplicate by `(chatId, id)`.
+the latest N messages; N may exceed the `get_messages` limit of 500.
 
-After every backward batch, require strict chronological progress: the oldest
-unique message seen must be earlier than the previous oldest timestamp. If it
-does not move earlier, stop and report the requested count as incomplete rather
-than retrying indefinitely. Stop when N unique messages are collected, history
-is exhausted, or a failure occurs. Sort all unique messages by `date`, then
-`id`, and only then keep exactly the latest N. If fewer than N were retrieved,
-state the count and the missing coverage.
+1. Fetch the newest messages with `get_messages` using `limit: min(N, 500)`,
+   `onlyUnread: false`, and `markAsRead: false`. Deduplicate by `(chatId, id)`.
+2. If fewer than N unique messages have been collected and the batch is
+   saturated, count the already-seen messages whose timestamp equals the
+   oldest returned timestamp. Set the next inclusive `maxDate` to that oldest
+   timestamp and request `limit: min(500, remaining unique messages + boundary
+   duplicate count)`. The extra count is the deliberate overlap needed to
+   recover messages sharing the boundary timestamp.
+3. After each backward batch, deduplicate by `(chatId, id)` and require strict
+   progress: the batch must expose an older timestamp or at least one new ID.
+   If neither occurs, stop and report incomplete coverage instead of retrying.
+   Repeat step 2 while the newest batch is saturated and fewer than N unique
+   messages have been collected.
+4. Stop when N unique messages are collected, history is exhausted, or a
+   failure occurs. History exhaustion or no progress before N is incomplete
+   coverage. Sort all unique messages by `date`, then `id`, and only then keep
+   exactly the latest N. If fewer than N were retrieved, state the count and
+   missing coverage.
 
 ## Summarize and cite
 

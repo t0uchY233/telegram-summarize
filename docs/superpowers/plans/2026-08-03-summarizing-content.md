@@ -160,7 +160,7 @@
   Run:
 
   ```bash
-  bun test
+  bun run test
   bun run typecheck
   git diff --check
   git status --short
@@ -175,4 +175,3 @@
   git add .agents/skills/summarizing-content AGENTS.md docs/superpowers/skill-tests/summarizing-content-scenarios.md
   git commit -m "test: verify universal summary skill"
   ```
-

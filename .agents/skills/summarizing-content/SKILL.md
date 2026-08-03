@@ -27,9 +27,13 @@ Match the user's language, requested format, audience, and level of detail.
    dates, timezone, and source identity when they matter. Ask a focused question
    only when a missing boundary prevents a reliable result; otherwise state the
    limitation.
-2. **Extract evidence.** Separate direct observations from interpretation.
-   Keep the source location, speaker, timestamp, URL, or quotation needed to
-   trace each material claim.
+2. **Extract complete evidence.** Read the complete accessible source within
+   the requested boundary before synthesizing. Treat search hits and snippets
+   only as pointers: when the underlying source is available, retrieve it and
+   do not synthesize from snippets alone. If access is partial, state what was
+   accessible and what remains missing. Separate direct observations from
+   interpretation, and keep the source location, speaker, timestamp, URL, or
+   quotation needed to trace each material claim.
 3. **Synthesize adaptively.** Start with the most useful short summary, then
    add detail only for substantive topics, decisions, disagreement, risks,
    resources, humor, or follow-up. Do not force an elaborate template on a
