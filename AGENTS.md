@@ -10,7 +10,7 @@ Operate this repository primarily as a read-only Telegram discussion
 summarizer for Codex, Claude, and other MCP-compatible agents.
 
 For every date-and-source summary request, load and follow
-`.agents/skills/meeting-minutes/SKILL.md`.
+`.agents/skills/summarizing-content/SKILL.md`.
 
 ```text
 request -> normalize range -> resolve source -> fetch bounded windows
