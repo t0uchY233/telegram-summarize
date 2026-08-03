@@ -272,7 +272,7 @@ The only available project skill metadata is:
 Determine selection from the quoted metadata. If (and only if) you select summarizing-content, read that file completely before producing the answer. For this scenario, after reading it, do not read any repository file or skill other than the direct reference it explicitly requires for this request (none should be required). Do not inspect AGENTS.md, the evaluation specification, previous reports, or any other repository file. Do not access any other skill. After the audit line, act on the fixed user request; do not discuss this wrapper or evaluation.
 ```
 
-#### Verbatim output
+#### Evaluator output (trailing whitespace normalized only)
 
 ```text
 SELECTED_SKILL: summarizing-content
@@ -318,7 +318,7 @@ The only available project skill metadata is:
 Determine selection from the quoted metadata. If (and only if) you select summarizing-content, read that file completely before producing the answer. For this scenario, after reading it, read the direct Telegram reference it explicitly requires completely: F:/program/codex_project/telegram-mcp/.worktrees/universal-summary-skill/.agents/skills/summarizing-content/references/telegram.md. Do not read any other repository file or skill. Do not inspect AGENTS.md, the evaluation specification, previous reports, or any other repository file. Do not access any other skill. After the audit line, act on the fixed user request; do not discuss this wrapper or evaluation.
 ```
 
-#### Verbatim output
+#### Evaluator output (trailing whitespace normalized only)
 
 ```text
 SELECTED_SKILL: summarizing-content
@@ -380,7 +380,7 @@ The only available project skill metadata is:
 Determine selection from the quoted metadata. If (and only if) you select summarizing-content, read that file completely before producing the answer. For this scenario, after reading it, read the direct meeting reference it explicitly requires completely: F:/program/codex_project/telegram-mcp/.worktrees/universal-summary-skill/.agents/skills/summarizing-content/references/meeting.md. Do not read any other repository file or skill. Do not inspect AGENTS.md, the evaluation specification, previous reports, or any other repository file. Do not access any other skill. After the audit line, act on the fixed user request; do not discuss this wrapper or evaluation.
 ```
 
-#### Verbatim output
+#### Evaluator output (trailing whitespace normalized only)
 
 ```text
 SELECTED_SKILL: summarizing-content

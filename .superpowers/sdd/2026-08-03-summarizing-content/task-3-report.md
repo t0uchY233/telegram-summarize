@@ -20,7 +20,8 @@ The evaluators ran sequentially as fresh subagents, with no explicit model or
 reasoning-effort override. Their exact wrappers require a complete `SKILL.md`
 read; the Telegram evaluator also requires the complete direct Telegram
 reference, and the meeting evaluator also requires the complete direct meeting
-reference. The test record contains each exact wrapper and verbatim output.
+reference. The test record contains each exact wrapper and evaluator output;
+only non-semantic trailing whitespace was normalized for `git diff --check`.
 
 | Scenario | Evaluator identity | Required reads | Score |
 | --- | --- | --- | ---: |
@@ -43,27 +44,80 @@ validator invocation succeeded:
 Skill is valid!
 ```
 
-The route/line-count check found the active `summarizing-content` route in
-`AGENTS.md` and no active route to the deleted skill. Historical baseline
-records still contain `meeting-minutes` by design. `SKILL.md` is 56 lines.
+The exact structural check and its output were:
+
+```powershell
+rg -n "meeting-minutes|summarizing-content" AGENTS.md .agents docs/superpowers/skill-tests
+(Get-Content .agents/skills/summarizing-content/SKILL.md).Count
+```
+
+```text
+AGENTS.md:13:`.agents/skills/summarizing-content/SKILL.md`.
+docs/superpowers/skill-tests\meeting-minutes-scenarios.md:4:after loading `.agents/skills/meeting-minutes/SKILL.md`.
+.agents\skills\summarizing-content\SKILL.md:2:name: summarizing-content
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:33:Evaluation wrapper v2.1 — compliance required. You must emit the following audit line as the first line of your final answer, before any user-facing content: `SELECTED_SKILL: none` if the only listed skill does not apply to the request, otherwise `SELECTED_SKILL: meeting-minutes`. Do not omit or alter this line.
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:38:- meeting-minutes — “Use when producing a concise record from a short internal meeting, transcript, raw notes, or a Telegram channel or group discussion.” Full path, only if selected: F:/program/codex_project/telegram-mcp/.worktrees/universal-summary-skill/.agents/skills/meeting-minutes/SKILL.md
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:40:Determine selection from the quoted metadata. If (and only if) you select meeting-minutes, read that one file fully before producing the answer. Do not inspect any other repository files or skills. Do not access a proposed/new universal skill. After the audit line, act on the request; do not discuss this wrapper or evaluation.
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:90:Evaluation wrapper v2.1 — compliance required. You must emit the following audit line as the first line of your final answer, before any user-facing content: `SELECTED_SKILL: none` if the only listed skill does not apply to the request, otherwise `SELECTED_SKILL: meeting-minutes`. Do not omit or alter this line.
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:95:- meeting-minutes — “Use when producing a concise record from a short internal meeting, transcript, raw notes, or a Telegram channel or group discussion.” Full path, only if selected: F:/program/codex_project/telegram-mcp/.worktrees/universal-summary-skill/.agents/skills/meeting-minutes/SKILL.md
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:97:Determine selection from the quoted metadata. If (and only if) you select meeting-minutes, read that one file fully before producing the answer. Do not inspect any other repository files or skills. Do not access a proposed/new universal skill. After the audit line, act on the request; do not discuss this wrapper or evaluation.
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:117:SELECTED_SKILL: meeting-minutes
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:157:| Current skill is observably selected and used | 1 | Audit line selects `meeting-minutes`; topic, resource, humor, participant, and limitation blocks follow its Telegram procedure. |
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:177:Evaluation wrapper v2.1 — compliance required. You must emit the following audit line as the first line of your final answer, before any user-facing content: `SELECTED_SKILL: none` if the only listed skill does not apply to the request, otherwise `SELECTED_SKILL: meeting-minutes`. Do not omit or alter this line.
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:182:- meeting-minutes — “Use when producing a concise record from a short internal meeting, transcript, raw notes, or a Telegram channel or group discussion.” Full path, only if selected: F:/program/codex_project/telegram-mcp/.worktrees/universal-summary-skill/.agents/skills/meeting-minutes/SKILL.md
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:184:Determine selection from the quoted metadata. If (and only if) you select meeting-minutes, read that one file fully before producing the answer. Do not inspect any other repository files or skills. Do not access a proposed/new universal skill. After the audit line, act on the request; do not discuss this wrapper or evaluation.
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:204:SELECTED_SKILL: meeting-minutes
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:226:| Current skill is observably selected | 1 | Audit line selects `meeting-minutes`. |
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:265:Evaluation wrapper v3.0 — compliance required. You must emit the following audit line as the first line of your final answer, before any user-facing content: `SELECTED_SKILL: none` if the only listed skill does not apply to the request, otherwise `SELECTED_SKILL: summarizing-content`. Do not omit or alter this line.
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:270:- summarizing-content — “Summarizes Telegram discussions, meetings, transcripts, documents, articles, pages, files, notes, and conversations into source-grounded summaries, саммари, сводка, выжимка, итоги, summary, TL;DR, digest, and recap.” Full path, only if selected: F:/program/codex_project/telegram-mcp/.worktrees/universal-summary-skill/.agents/skills/summarizing-content/SKILL.md
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:272:Determine selection from the quoted metadata. If (and only if) you select summarizing-content, read that file completely before producing the answer. For this scenario, after reading it, do not read any repository file or skill other than the direct reference it explicitly requires for this request (none should be required). Do not inspect AGENTS.md, the evaluation specification, previous reports, or any other repository file. Do not access any other skill. After the audit line, act on the fixed user request; do not discuss this wrapper or evaluation.
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:278:SELECTED_SKILL: summarizing-content
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:295:| An applicable project summary skill is selected | 1 | The audit line selects `summarizing-content` for the article. |
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:311:Evaluation wrapper v3.0 — compliance required. You must emit the following audit line as the first line of your final answer, before any user-facing content: `SELECTED_SKILL: none` if the only listed skill does not apply to the request, otherwise `SELECTED_SKILL: summarizing-content`. Do not omit or alter this line.
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:316:- summarizing-content — “Summarizes Telegram discussions, meetings, transcripts, documents, articles, pages, files, notes, and conversations into source-grounded summaries, саммари, сводка, выжимка, итоги, summary, TL;DR, digest, and recap.” Full path, only if selected: F:/program/codex_project/telegram-mcp/.worktrees/universal-summary-skill/.agents/skills/summarizing-content/SKILL.md
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:318:Determine selection from the quoted metadata. If (and only if) you select summarizing-content, read that file completely before producing the answer. For this scenario, after reading it, read the direct Telegram reference it explicitly requires completely: F:/program/codex_project/telegram-mcp/.worktrees/universal-summary-skill/.agents/skills/summarizing-content/references/telegram.md. Do not read any other repository file or skill. Do not inspect AGENTS.md, the evaluation specification, previous reports, or any other repository file. Do not access any other skill. After the audit line, act on the fixed user request; do not discuss this wrapper or evaluation.
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:324:SELECTED_SKILL: summarizing-content
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:353:| New skill is observably selected and used | 1 | The audit line selects `summarizing-content`; the answer follows its Telegram output contract. |
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:373:Evaluation wrapper v3.0 — compliance required. You must emit the following audit line as the first line of your final answer, before any user-facing content: `SELECTED_SKILL: none` if the only listed skill does not apply to the request, otherwise `SELECTED_SKILL: summarizing-content`. Do not omit or alter this line.
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:378:- summarizing-content — “Summarizes Telegram discussions, meetings, transcripts, documents, articles, pages, files, notes, and conversations into source-grounded summaries, саммари, сводка, выжимка, итоги, summary, TL;DR, digest, and recap.” Full path, only if selected: F:/program/codex_project/telegram-mcp/.worktrees/universal-summary-skill/.agents/skills/summarizing-content/SKILL.md
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:380:Determine selection from the quoted metadata. If (and only if) you select summarizing-content, read that file completely before producing the answer. For this scenario, after reading it, read the direct meeting reference it explicitly requires completely: F:/program/codex_project/telegram-mcp/.worktrees/universal-summary-skill/.agents/skills/summarizing-content/references/meeting.md. Do not read any other repository file or skill. Do not inspect AGENTS.md, the evaluation specification, previous reports, or any other repository file. Do not access any other skill. After the audit line, act on the fixed user request; do not discuss this wrapper or evaluation.
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:386:SELECTED_SKILL: summarizing-content
+docs/superpowers/skill-tests\summarizing-content-scenarios.md:401:| New skill is observably selected | 1 | The audit line selects `summarizing-content`. |
+56
+```
+
+The active route is `summarizing-content` in `AGENTS.md`; all
+`meeting-minutes` matches are historical baseline/evaluation records. `SKILL.md`
+is 56 lines, below the 500-line limit.
 
 ## Repository checks
 
 | Command | Result |
 | --- | --- |
-| `bun test` | Fails only `src/config.send-tools.test.ts` when run directly: its mock-mode assumption is absent because direct Bun invocation bypasses the package test script's preload. |
-| `TELEGRAM_MOCK=true bun test` | Pass: 58 tests, 0 failures, 164 expectations. |
+| `C:/Users/t0uchY/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback/pnpm.cmd dlx bun run test` | Pass; this executes the configured package entrypoint: `$ bun test --preload ./src/test-preload.ts`. Complete Bun summary: `58 pass`; `0 fail`; `164 expect() calls`; `Ran 58 tests across 9 files. [661.00ms]`. |
+| `bun test` | Direct diagnostic invocation bypasses the package test script's preload and has one mock-environment failure; it is not the configured project test entrypoint. |
 | `bun run typecheck` | Pass: `tsc --noEmit`. |
-| `git diff --check` | Pass after removing a trailing space from the recorded verbatim output. |
+| `git diff --check` | Pass after removing a trailing space from the recorded evaluator output. |
 
 All Bun commands used the required bundled Bun 1.3.14 launcher.
+
+The required status check was run with:
+
+```powershell
+git status --short
+```
+
+Its output was empty, so there were no tracked, untracked, or staged worktree
+changes at that point. SDD task artifacts are normally ignored by
+`.superpowers/sdd/.gitignore`; this report was deliberately force-added and is
+therefore tracked. The status check is rerun after the correction commit.
 
 ## Diff checks and self-review
 
 The final diff is limited to the approved evaluation record and this Task 3
 report. The evaluator wrappers are copied exactly from the executed prompts;
-their outputs are copied verbatim except for non-semantic trailing whitespace,
-which was removed so `git diff --check` passes. Every score has a
+their output headings explicitly disclose the only normalization: non-semantic
+trailing whitespace removed so `git diff --check` passes. Every score has a
 criterion-specific evidence note. No unrelated source, skill, or route change
 was made.
 
