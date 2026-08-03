@@ -39,6 +39,9 @@ secrets.json
 # VS Code
 .vscode
 
+# Local git worktrees
+.worktrees/
+
 # Finder (MacOS) folder config
 .DS_Store
 
