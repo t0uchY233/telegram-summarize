@@ -110,7 +110,8 @@ git status --short
 Its output was empty, so there were no tracked, untracked, or staged worktree
 changes at that point. SDD task artifacts are normally ignored by
 `.superpowers/sdd/.gitignore`; this report was deliberately force-added and is
-therefore tracked. The status check is rerun after the correction commit.
+therefore tracked. After correction commit `28d75d0`, the same command was
+rerun and again produced no output; the tracked worktree was clean.
 
 ## Diff checks and self-review
 
