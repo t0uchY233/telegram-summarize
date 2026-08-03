@@ -71,13 +71,15 @@ state the count and the missing coverage.
 
 ## Output and coverage
 
-Adapt detail to the messages, but clearly provide the following compact labels
-when supported: absolute **Period** and timezone; per-source **Coverage**;
-short **Summary**; topical participant attribution; **Important information**;
-**Facts**; **Conclusions**; **Resources**; **Humor**; and **Limitations**. Use
-the user's-language equivalent of “Not found” for an unsupported required
-section. Keep multiple-source attribution unambiguous and combine topics only
-when the sources genuinely share them.
+Adapt detail to the messages, but always provide this compact output set:
+absolute **Period** and timezone; per-source **Coverage**; short **Summary**;
+**Topics** with topic-level participant attribution; consolidated
+**Participants** (which does not replace topic-level attribution); **Important
+information**; **Facts**; **Conclusions**; **Resources**; and **Limitations**.
+Use the user's-language equivalent of “Not found” for every unsupported
+required section. Include **Humor** only when notable material exists; do not
+pad an empty humor section. Keep multiple-source attribution unambiguous and
+combine topics only when the sources genuinely share them.
 
 Never invent consensus, roles, owners, deadlines, decisions, action items,
 reaction counts, or coverage. State both observations and any conclusion
